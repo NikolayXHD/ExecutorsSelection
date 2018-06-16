@@ -3,7 +3,12 @@ using System.Collections.Generic;
 
 namespace ExecutorsSelection
 {
-	public class Simplex
+	/// <summary>
+	/// Основная Задача Линейного программирования 
+	/// <para>Transpose(A) * x &lt;= b</para>
+	/// <para>cx -> max</para>
+	/// </summary>
+	public class LinearProgrammingProblem
 	{
 		private readonly double[] _c;
 		private readonly double[,] _a;
@@ -12,7 +17,15 @@ namespace ExecutorsSelection
 		private readonly HashSet<int> _basicSet = new HashSet<int>();
 		private double _v;
 
-		public Simplex(double[] b, double[] c, double[,] a)
+		/// <summary>
+		/// Создать Основную Задачу Линейного программирования 
+		/// <para>Transpose(A) * x &lt;= b</para>
+		/// <para>cx -> max</para>
+		/// </summary>
+		/// <param name="a">Матрица размерности m x n</param>
+		/// <param name="b">Вектор длины m</param> 
+		/// <param name="c">Вектор длины n - коеффициенты максимизируемой линейной целевой функции</param>
+		public LinearProgrammingProblem(double[] b, double[] c, double[,] a)
 		{
 			int bLen = b.Length;
 			int cLen = c.Length;
@@ -46,7 +59,7 @@ namespace ExecutorsSelection
 				_basicSet.Add(cLen + i);
 		}
 
-		public (double Value, double[] Vector) Maximize()
+		public (double Value, double[] Vector) FindMaximum()
 		{
 			while (true)
 			{
@@ -85,8 +98,8 @@ namespace ExecutorsSelection
 				}
 
 				// Unbounded
-				if (double.IsInfinity(minRatio))
-					return (double.PositiveInfinity, null);
+				if (double.IsPositiveInfinity(minRatio))
+					return (minRatio, null);
 
 				pivot(enteringIndex, leavingIndex);
 			}
