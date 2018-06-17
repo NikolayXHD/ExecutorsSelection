@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace ExecutorsSelection
 {
@@ -9,6 +13,215 @@ namespace ExecutorsSelection
 	/// </summary>
 	public class ExecutorsSelectionProblem
 	{
+		public Solution Solve()
+		{
+			int stagesCount = ExecutorWorkStages.Max() + 1;
+			int nExecutors = ExecutorsCount;
+
+			string problem = formulateLpProblem(nExecutors, stagesCount);
+			var lines = readSolutionFor(problem);
+
+			if (lines[0] == "This problem is infeasible")
+				return new Solution
+				{
+					IsInfeasible = true
+				};
+
+			var workDistribution = parseSolution(lines, nExecutors);
+			return createSolution(workDistribution);
+		}
+
+		private string formulateLpProblem(int nExecutors, int stagesCount)
+		{
+			const string format = "0.########";
+			bool first = true;
+
+			var lp = new StringBuilder();
+
+			void maximum() => lp.Append("max: ");
+			// void minimum() => lp.Append("min: ");
+
+			void variable(int index, double multiplier)
+			{
+				if (multiplier < 0)
+				{
+					lp.Append('-');
+					if (!first)
+						lp.Append(' ');
+				}
+				else if (!first)
+					lp.Append("+ ");
+
+				multiplier = Math.Abs(multiplier);
+				
+				if (multiplier != 1d)
+				{
+					lp.Append(multiplier.ToString(format, CultureInfo.InvariantCulture));
+					lp.Append(' ');
+				}
+
+				lp.Append("x");
+				lp.Append(index.ToString(CultureInfo.InvariantCulture));
+				lp.Append(' ');
+
+				first = false;
+			}
+
+			void lte(double val)
+			{
+				lp.Append("<= ");
+				lp.Append(val.ToString(format, CultureInfo.InvariantCulture));
+			}
+
+			void gte(double val)
+			{
+				lp.Append(">= ");
+				lp.Append(val.ToString(format, CultureInfo.InvariantCulture));
+			}
+
+			void eq(double val)
+			{
+				lp.Append("= ");
+				lp.Append(val.ToString(format, CultureInfo.InvariantCulture));
+			}
+
+			void endline()
+			{
+				first = true;
+				lp.AppendLine(";");
+			}
+
+			maximum();
+			for (int i = 0; i < nExecutors; i++)
+				variable(i, multiplier: WorkQualities[i] * DeltaRate - PaymentRates[i] * DeltaQuality);
+
+			endline();
+
+			for (int i = 0; i < nExecutors; i++)
+			{
+				variable(i, multiplier: 1);
+				lte(AvailableWorktimes[i] * WorkSpeeds[i]);
+				endline();
+			}
+
+			for (int i = 0; i < nExecutors; i++)
+				variable(i, multiplier: PaymentRates[i]);
+
+			lte(MaxCost);
+			endline();
+
+			for (int i = 0; i < nExecutors; i++)
+				variable(i, multiplier: WorkQualities[i]);
+
+			gte(TotalWorkAmount * MinQuality);
+			endline();
+
+			for (int s = 0; s < stagesCount; s++)
+			{
+				for (int i = 0; i < nExecutors; i++)
+					if (ExecutorWorkStages[i] == s)
+						variable(i, multiplier: 1);
+
+				eq(TotalWorkAmount);
+				endline();
+			}
+
+			string problem = lp.ToString();
+			return problem;
+		}
+
+		private static string[] readSolutionFor(string problem)
+		{
+			string fullSubdir = Path.GetFullPath("lpsolve");
+			string path = Path.Combine(fullSubdir, "lp_solve.exe");
+
+			var process = Process.Start(
+				new ProcessStartInfo(path)
+				{
+					CreateNoWindow = true,
+					UseShellExecute = false,
+					RedirectStandardError = true,
+					RedirectStandardOutput = true,
+					RedirectStandardInput = true
+				});
+
+			if (process == null)
+				throw new ApplicationException("Failed to start lp_solve.exe");
+
+			process.StandardInput.WriteLine(problem);
+			process.StandardInput.Close();
+
+			process.WaitForExit();
+
+			string error = process.StandardError.ReadToEnd();
+
+			if (!string.IsNullOrEmpty(error))
+				throw new ApplicationException("lp_solve.exe error: " + error);
+
+			string ouptut = process.StandardOutput.ReadToEnd();
+			var lines = ouptut.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+			return lines;
+		}
+
+		private static double[] parseSolution(string[] lines, int nExecutors)
+		{
+			var varListIndex = Array.IndexOf(lines, "Actual values of the variables:");
+
+			if (varListIndex < 0)
+				return null;
+
+			var workDistribution = new double[nExecutors];
+
+			for (int i = varListIndex + 1; i < lines.Length; i++)
+			{
+				var line = lines[i];
+
+				if (line == string.Empty)
+					continue;
+
+				if (line[0] != 'x')
+					throw new ArgumentException("unexpected line in lp solution: " + line);
+
+				var nameDelimiterIndex = line.IndexOf(' ');
+				int variableIndex = int.Parse(line.Substring(1, nameDelimiterIndex - 1), CultureInfo.InvariantCulture);
+				var valueDelimiterIndex = line.LastIndexOf(' ');
+				double value = double.Parse(line.Substring(valueDelimiterIndex + 1), CultureInfo.InvariantCulture);
+
+				workDistribution[variableIndex] = value;
+			}
+
+			return workDistribution;
+		}
+
+		private Solution createSolution(double[] workDistribution)
+		{
+			if (workDistribution == null)
+				return new Solution
+				{
+					IsUnbound = true
+				};
+
+			int nExecutors = workDistribution.Length;
+
+			double averageQuality =
+				Enumerable.Range(0, nExecutors)
+					.Sum(i => workDistribution[i] * WorkQualities[i]) /
+				TotalWorkAmount;
+
+			double totalCost =
+				Enumerable.Range(0, nExecutors)
+					.Sum(i => workDistribution[i] * PaymentRates[i]);
+
+			return new Solution
+			{
+				WorkDistribution = workDistribution,
+				AverageQuality = averageQuality,
+				TotalCost = totalCost
+			};
+		}
+
+
+
 		public double[] PaymentRates { get; set; }
 		public double[] WorkQualities { get; set; }
 
@@ -37,81 +250,6 @@ namespace ExecutorsSelection
 
 		public int ExecutorsCount => PaymentRates.Length;
 
-		public Solution Solve()
-		{
-			int stagesCount = ExecutorWorkStages.Max() + 1;
-			int nExecutors = ExecutorsCount;
-
-			double[] b = new double[nExecutors + 2 + stagesCount * 2];
-
-			for (int i = 0; i < nExecutors; i++)
-				b[i] = AvailableWorktimes[i] * WorkSpeeds[i];
-
-			b[nExecutors] = MaxCost;
-			b[nExecutors + 1] = -TotalWorkAmount * MinQuality;
-
-			for (int s = 0; s < stagesCount; s++)
-			{
-				int i = nExecutors + 2 + s * 2;
-				b[i] = TotalWorkAmount;
-				b[i + 1] = -TotalWorkAmount;
-			}
-
-			double[] c = new double[nExecutors];
-			for (int i = 0; i < nExecutors; i++)
-				c[i] = -PaymentRates[i] + WorkQualities[i] * DeltaRate / DeltaQuality;
-
-			double[,] a = new double[b.Length, c.Length];
-
-			for (int i = 0; i < nExecutors; i++)
-				a[i, i] = 1;
-
-			for (int j = 0; j < nExecutors; j++)
-			{
-				a[nExecutors, j] = PaymentRates[j];
-				a[nExecutors + 1, j] = -WorkQualities[j];
-
-				int index = nExecutors + 2 + ExecutorWorkStages[j] * 2;
-				a[index, j] = 1;
-				a[index + 1, j] = -1;
-			}
-
-			var lpProblem = new LinearProgrammingProblem(b, c, a);
-			var max = lpProblem.FindMaximum();
-
-			if (double.IsPositiveInfinity(max.Value))
-				return new Solution
-				{
-					IsUnbound = true
-				};
-
-			var workDistribution = max.Vector.Take(nExecutors).ToArray();
-
-			const double epsilon = 1e-5;
-
-			var infeasibleStages = Enumerable.Range(0, stagesCount)
-				.Where(s => epsilon < Math.Abs(
-					TotalWorkAmount -
-					Enumerable.Range(0, nExecutors)
-						.Where(i => ExecutorWorkStages[i] == s)
-						.Sum(i => workDistribution[i])))
-				.ToArray();
-
-			double averageQuality =
-				Enumerable.Range(0, nExecutors)
-					.Sum(i => workDistribution[i] * WorkQualities[i]) /
-				TotalWorkAmount;
-
-			return new Solution
-			{
-				WorkDistribution = workDistribution,
-				AverageQuality = averageQuality,
-				TotalCost = Enumerable.Range(0, nExecutors).Sum(i => workDistribution[i] * PaymentRates[i]),
-				InfeasibleStages = infeasibleStages,
-				IsInfeasible = infeasibleStages.Length > 0 || averageQuality < MinQuality
-			};
-		}
-
 		public class Solution
 		{
 			public double[] WorkDistribution { get; set; }
@@ -119,9 +257,7 @@ namespace ExecutorsSelection
 			public double AverageQuality { get; set; }
 			public double TotalCost { get; set; }
 
-			public int[] InfeasibleStages { get; set; }
 			public bool IsInfeasible { get; set; }
-
 			public bool IsUnbound { get; set; }
 		}
 	}

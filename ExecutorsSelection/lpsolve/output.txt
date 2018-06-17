@@ -1,0 +1,232 @@
+Usage of lp_solve.exe version 5.5.2.5:
+lp_solve.exe [options] [[<]input_file]
+List of options:
+-h		prints this message
+-lp		read from LP file (default)
+-mps		read from MPS file, default in fixed format
+-mps_free		use free format
+-mps_ibm		interprete integers accoring to ibm format
+-mps_negobjconst	negate objective constant
+-fmps		read from MPS file in free format
+-rpar filename	read parameters from filename.
+-rparopt options
+		options for parameter file:
+		 -H headername: header name for parameters. By default 'Default'
+-rxli xliname filename
+		read file with xli library
+-rxlidata datafilename
+		data file name for xli library.
+-rxliopt options
+		options for xli library.
+-rbas filename	read basis from filename.
+-gbas filename	guess basis with variables from filename.
+-plp		print model.
+-wlp filename	write to LP file
+-wmps filename	write to MPS file in fixed format
+-wfmps filename	write to MPS file in free format
+-wxli xliname filename
+		write file with xli library
+-wxliopt options
+		options for xli library.
+-wxlisol xliname filename
+		write solution file with xli library
+-wxlisolopt options
+		options for xli library.
+-wbas filename	write basis to filename.
+-wpar filename	write parameters to filename.
+-wparopt options
+		options for parameter file:
+		 -H headername: header name for parameters. By default 'Default'
+-wafter		Write model after solve (useful if presolve used).
+-parse_only	parse input file but do not solve
+-nonames	Ignore variables and constraint names
+-norownames	Ignore constraint names
+-nocolnames	Ignore variable names
+
+-min		Minimize the lp problem (overrules setting in file)
+-max		Maximize the lp problem (overrules setting in file)
+-r <value>	specify max nbr of pivots between a re-inversion of the matrix
+-piv <rule>	specify simplex pivot rule
+	 -piv0: Select first
+	 -piv1: Select according to Dantzig
+	 -piv2: Select Devex pricing from Paula Harris (default)
+	 -piv3: Select steepest edge
+These pivot rules can be combined with any of the following:
+-pivf		In case of Steepest Edge, fall back to DEVEX in primal.
+-pivm		Multiple pricing.
+-piva		Temporarily use First Index if cycling is detected.
+-pivr		Adds a small randomization effect to the selected pricer.
+-pivll		Scan entering/leaving columns left rather than right.
+-pivla		Scan entering/leaving columns alternatingly left/right.
+-pivh		Use Harris' primal pivot logic rather than the default.
+-pivt		Use true norms for Devex and Steepest Edge initializations.
+-o0		Don't put objective in basis.
+-o1		Put objective in basis (default).
+-s <mode> <scaleloop>	use automatic problem scaling.
+	 -s0: No scaling
+	 -s1: Geometric scaling (default)
+	 -s2: Curtis-reid scaling
+	 -s3: Scale to convergence using largest absolute value
+	  -s:
+	 -s4: Numerical range-based scaling
+	 -s5: Same as -s4 -sl
+	 -s6: Scale based on the simple numerical range
+	 -s7: Same as -s4 -sq
+These scaling rules can be combined with any of the following:
+	 -sp: also do power scaling.
+	 -si: also do integer scaling (default).
+	 -se: also do equilibration to scale to the -1..1 range (default).
+	 -sq: also do quadratic scaling.
+	 -sl: Scale to convergence using logarithmic mean of all values.
+	 -sd: Dynamic update.
+	 -sr: Scale only rows.
+	 -sc: Scale only columns.
+-presolve	presolve problem before start optimizing (rows+columns)
+-presolverow	presolve problem before start optimizing (rows only)
+-presolvecol	presolve problem before start optimizing (columns only)
+-presolvel	also eliminate linearly dependent rows
+-presolves	also convert constraints to SOSes (only SOS1 handled)
+-presolver	If the phase 1 solution process finds that a constraint is
+		redundant then this constraint is deleted
+-presolvek	Simplification of knapsack-type constraints through
+		addition of an extra variable, which also helps bound the OF
+-presolveq	Direct substitution of one variable in 2-element equality
+		constraints; this requires changes to the constraint matrix
+-presolvem	Merge rows
+-presolvefd	COLFIXDUAL
+-presolvebnd	Presolve bounds
+-presolved	Presolve duals
+-presolvef	Identify implied free variables (releasing their expl. bounds)
+-presolveslk	IMPLIEDSLK
+-presolveg	Reduce (tighten) coef. in integer models based on GCD argument
+-presolveb	Attempt to fix binary variables at one of their bounds
+-presolvec	Attempt to reduce coefficients in binary models
+-presolverowd	Idenfify and delete qualifying constraints that
+		are dominated by others, also fixes variables at a bound
+-presolvecold	Deletes variables (mainly binary), that are dominated
+		by others (only one can be non-zero)
+-C <mode>	basis crash mode
+	 -C0: No crash basis
+	 -C2: Most feasible basis
+	 -C3: Least degenerate basis
+-prim		Prefer the primal simplex for both phases.
+-dual		Prefer the dual simplex for both phases.
+-simplexpp	Set Phase1 Primal, Phase2 Primal.
+-simplexdp	Set Phase1 Dual, Phase2 Primal.
+-simplexpd	Set Phase1 Primal, Phase2 Dual.
+-simplexdd	Set Phase1 Dual, Phase2 Dual.
+-degen		use perturbations to reduce degeneracy,
+		can increase numerical instability
+-degenc		use column check to reduce degeneracy
+-degend		dynamic check to reduce degeneracy
+-degenf		anti-degen fixedvars
+-degens		anti-degen stalling
+-degenn		anti-degen numfailure
+-degenl		anti-degen lostfeas
+-degeni		anti-degen infeasible
+-degenb		anti-degen B&B
+-degenr		anti-degen Perturbation of the working RHS at refactorization
+-degenp		anti-degen Limit bound flips
+-trej <Trej>	set minimum pivot value
+-epsd <epsd>	set minimum tolerance for reduced costs
+-epsb <epsb>	set minimum tolerance for the RHS
+-epsel <epsel>	set tolerance for rounding values to zero
+-epsp <epsp>	set the value that is used as perturbation scalar for
+		degenerative problems
+-improve <level>	iterative improvement level
+	 -improve0: none
+	 -improve1: Running accuracy measurement of solved equations on Bx=r
+	 -improve2: Improve initial dual feasibility by bound flips (default)
+	 -improve4: Low-cost accuracy monitoring in the dual
+	 -improve8: check for primal/dual feasibility at the node level
+-timeout <sec>	Timeout after sec seconds when not solution found.
+-ac <accuracy>	Fail when accuracy is less then specified value.
+-bfp <filename>	Set basis factorization package.
+
+-noint		Ignore integer restrictions
+-e <number>	specifies the tolerance which is used to determine whether a
+		floating point number is in fact an integer.
+		Should be < 0.5
+-g <number>
+-ga <number>	specifies the absolute MIP gap for branch-and-bound.
+		This specifies the absolute allowed tolerance
+		on the object function. Can result in faster solving times.
+-gr <number>	specifies the relative MIP gap for branch-and-bound.
+		This specifies the relative allowed tolerance
+		on the object function. Can result in faster solving times.
+-f		specifies that branch-and-bound algorithm stops at first found
+		solution
+-b <bound>	specify a lower bound for the objective function
+		to the program. If close enough, may speed up the
+		calculations.
+-o <value>	specifies that branch-and-bound algorithm stops when objective
+		value is better than value
+-c
+-cc		during branch-and-bound, take the ceiling branch first
+-cf		during branch-and-bound, take the floor branch first
+-ca		during branch-and-bound, the algorithm chooses branch
+-depth <limit>	set branch-and-bound depth limit
+-n <solnr>	specify which solution number to return
+-B <rule>	specify branch-and-bound rule
+	 -B0: Select Lowest indexed non-integer column (default)
+	 -B1: Selection based on distance from the current bounds
+	 -B2: Selection based on the largest current bound
+	 -B3: Selection based on largest fractional value
+	 -B4: Simple, unweighted pseudo-cost of a variable
+	 -B5: This is an extended pseudo-costing strategy based on minimizing
+	      the number of integer infeasibilities
+	 -B6: This is an extended pseudo-costing strategy based on maximizing
+	      the normal pseudo-cost divided by the number of infeasibilities.
+	      Similar to (the reciprocal of) a cost/benefit ratio
+These branch-and-bound rules can be combined with any of the following:
+-Bw		WeightReverse branch-and-bound
+-Bb		BranchReverse branch-and-bound
+-Bg		Greedy branch-and-bound
+-Bp		PseudoCost branch-and-bound
+-BR		Extended PseudoCost branch-and-bound
+-Bf		DepthFirst branch-and-bound
+-Br		Randomize branch-and-bound
+-BG		GubMode branch-and-bound
+-Bd		Dynamic branch-and-bound
+-Bs		RestartMode branch-and-bound
+-BB		BreadthFirst branch-and-bound
+-Bo		Order variables to improve branch-and-bound performance
+-Bc		Do bound tightening during B&B based of reduced cost info
+-Bi		Initialize pseudo-costs by strong branching
+
+-time		Print CPU time to parse input and to calculate result.
+-v <level>	verbose mode, gives flow through the program.
+		 if level not provided (-v) then -v4 (NORMAL) is taken.
+	 -v0: NEUTRAL
+	 -v1: CRITICAL
+	 -v2: SEVERE
+	 -v3: IMPORTANT (default)
+	 -v4: NORMAL
+	 -v5: DETAILED
+	 -v6: FULL
+-t		trace pivot selection
+-d		debug mode, all intermediate results are printed,
+		and the branch-and-bound decisions
+-R		report information while solving the model
+-Db <filename>	Do a generic readable data dump of key lp_solve model variables
+		before solve.
+		Principally for run difference and debugging purposes
+-Da <filename>	Do a generic readable data dump of key lp_solve model variables
+		after solve.
+		Principally for run difference and debugging purposes
+-i		print all intermediate valid solutions.
+		Can give you useful solutions even if the total run time
+		is too long
+-ia		print all intermediate (only non-zero values) valid solutions.
+		Can give you useful solutions even if the total run time
+		is too long
+-stat		Print model statistics
+-S <detail>	Print solution. If detail omitted, then -S2 is used.
+	 -S0: Print nothing
+	 -S1: Only objective value
+	 -S2: Obj value+variables (default)
+	 -S3: Obj value+variables+constraints
+	 -S4: Obj value+variables+constraints+duals
+	 -S5: Obj value+variables+constraints+duals+lp model
+	 -S6: Obj value+variables+constraints+duals+lp model+scales
+	 -S7: Obj value+variables+constraints+duals+lp model+scales+lp tableau
