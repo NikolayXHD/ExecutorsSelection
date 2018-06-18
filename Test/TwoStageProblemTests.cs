@@ -47,7 +47,7 @@ namespace Test
 				AvailableTimes = new[] { 1000d, 1000d, 1000d, 1000d },
 				WorkSpeeds = new[] { 1d, 1d, 1d, 1d },
 
-				DeltaRate = 0.1,
+				DeltaCost = 0.1,
 				DeltaQuality = 0.01,
 
 				MaxCost = 5000,

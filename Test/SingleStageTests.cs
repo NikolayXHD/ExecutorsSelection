@@ -96,7 +96,7 @@ namespace Test
 			problem.MinQuality = minQuality;
 
 			// totally prefer low payment rate over quality
-			problem.DeltaRate = 0;
+			problem.DeltaCost = 0;
 
 			Log("Min quality", problem.MinQuality);
 			Log("Payment rate per worker", problem.PaymentRates);
@@ -151,9 +151,9 @@ namespace Test
 			problem.WorkQualities[higherQualityIndex] += deltaQuality;
 			problem.PaymentRates[higherQualityIndex] += deltaRate;
 
-			bool qualityIncrementIsTooExpensive = deltaRate / deltaQuality > problem.DeltaRate / problem.DeltaQuality;
+			bool qualityIncrementIsTooExpensive = deltaRate / deltaQuality > problem.DeltaCost / problem.DeltaQuality;
 
-			Log("Max delta Payment rate", problem.DeltaRate);
+			Log("Max delta Payment rate", problem.DeltaCost);
 			Log("Per delta Work quality", problem.DeltaQuality);
 			Log("Work quality per worker", problem.WorkQualities);
 			Log("Payment rate per worker", problem.PaymentRates);
@@ -209,7 +209,7 @@ namespace Test
 				AvailableTimes = new[] { 1000d, 1000d },
 				WorkSpeeds = new[] { 1d, 1d },
 
-				DeltaRate = 0.1,
+				DeltaCost = 0.1,
 				DeltaQuality = 0.01,
 
 				MaxCost = 5000,

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using ExecutorsSelection;
 using NLog;
@@ -19,16 +18,13 @@ namespace Test
 
 		protected static void Log(string title, double[] values) =>
 			_log.Debug($"{title}: " + string.Join(" ",
-				values.Select(v => v.ToString(Format, _culture))));
-
-		protected static void Log(string title, int[] values) =>
-			_log.Debug($"{title}: " + string.Join(" ", values.Select(v => v.ToString("D", _culture))));
+				values.Select(NumericFormats.Format)));
 
 		protected static void Log(string title, double value) =>
-			_log.Debug($"{title}: {value.ToString(Format, _culture)}");
+			_log.Debug($"{title}: {value.Format()}");
 
 		protected static void Log(string title, bool value) =>
-			_log.Debug($"{title}: {value.ToString().ToUpper(_culture)}");
+			_log.Debug($"{title}: {value.Format()}");
 
 		protected static void Log(ExecutorsSelectionProblem.Solution solution)
 		{
@@ -50,8 +46,6 @@ namespace Test
 		}
 
 		private static readonly Logger _log = LogManager.GetCurrentClassLogger();
-		private static readonly CultureInfo _culture = CultureInfo.InvariantCulture;
-		private const string Format = "0.########";
 		protected const double Epsilon = 1e-5;
 	}
 }

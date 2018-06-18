@@ -82,7 +82,7 @@ namespace ExecutorsSelection
 			validateWorkStages();
 
 			validatePositiveParameter(nameof(TotalWorkAmount), TotalWorkAmount);
-			validatePositiveParameter(nameof(DeltaRate), DeltaRate);
+			validatePositiveParameter(nameof(DeltaCost), DeltaCost);
 			validatePositiveParameter(nameof(DeltaQuality), DeltaQuality);
 		}
 
@@ -154,7 +154,7 @@ namespace ExecutorsSelection
 
 			maximum();
 			for (int i = 0; i < ExecutorsCount; i++)
-				variable(i, multiplier: WorkQualities[i] * DeltaRate - PaymentRates[i] * DeltaQuality);
+				variable(i, multiplier: WorkQualities[i] * DeltaCost - PaymentRates[i] * DeltaQuality);
 
 			endline();
 
@@ -287,16 +287,16 @@ namespace ExecutorsSelection
 		public double[] WorkSpeeds { get; set; }
 
 		/// <summary>
-		/// <see cref="DeltaRate"/> is such an increase of payment rate
-		/// that increasing payment rate by it when quality changes by <see cref="DeltaQuality"/>
-		/// keeps utility function (whose maximum we are seeking) unchanged
+		/// <see cref="DeltaCost"/> is such an increase of project cost that
+		/// when quality changes by <see cref="DeltaQuality"/> 
+		/// it keeps utility function (whose maximum we are seeking) unchanged
 		/// </summary>
-		public double DeltaRate { get; set; }
+		public double DeltaCost { get; set; }
 
 		/// <summary>
-		/// <see cref="DeltaQuality"/> is such an increase of quality
-		/// that increasing quality by it when payment rate changes by <see cref="DeltaRate"/>
-		/// keeps utility function (whose maximum we are seeking) unchanged
+		/// <see cref="DeltaQuality"/> is such an increase of quality that
+		/// when project cost changes by <see cref="DeltaCost"/> 
+		/// it keeps utility function (whose maximum we are seeking) unchanged
 		/// </summary>
 		public double DeltaQuality { get; set; }
 
