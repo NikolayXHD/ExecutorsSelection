@@ -15,11 +15,10 @@ namespace ExecutorsSelection
 	{
 		public Solution Solve()
 		{
-			int stagesCount = ExecutorWorkStages.Max() + 1;
-			int nExecutors = ExecutorsCount;
+			validate();
 
-			string problem = formulateLpProblem(nExecutors, stagesCount);
-			var lines = readSolutionFor(problem);
+			string problem = formulateLpProblem();
+			var lines = calculateSolutionFor(problem);
 
 			if (lines[0] == "This problem is infeasible")
 				return new Solution
@@ -27,12 +26,72 @@ namespace ExecutorsSelection
 					IsInfeasible = true
 				};
 
-			var workDistribution = parseSolution(lines, nExecutors);
+			var workDistribution = parseSolution(lines);
+
+			if (workDistribution == null)
+				return new Solution
+				{
+					IsUnbound = true
+				};
+
 			return createSolution(workDistribution);
 		}
 
-		private string formulateLpProblem(int nExecutors, int stagesCount)
+		private void validate()
 		{
+			void validateWorkerProperties<T>(string name, T[] array)
+				where T : IComparable<T>
+			{
+				if (array == null)
+					throw new InvalidOperationException($"{name} is null");
+
+				if (array.Length != ExecutorsCount)
+					throw new InvalidOperationException($"Invalid {name} length {array.Length}. Expected {ExecutorsCount}");
+
+				for (int i = 0; i < array.Length; i++)
+					if (array[i].CompareTo(default(T)) < 0)
+						throw new InvalidOperationException($"negative value {array[i]} in {name} at position {i}");
+			}
+
+			void validatePositiveParameter(string name, double value)
+			{
+				if (value < 0)
+					throw new InvalidOperationException($"negative value {value} of parameter {name}");
+			}
+
+			void validateWorkStages()
+			{
+				validateWorkerProperties(nameof(WorkStages), WorkStages);
+
+				if (WorkStages[0] != 0)
+					throw new InvalidOperationException($"{nameof(WorkStages)}[0] must be 0. Actual value {WorkStages[0]}");
+
+				for (int i = 1; i < ExecutorsCount; i++)
+				{
+					int delta = WorkStages[i] - WorkStages[i - 1];
+
+					if (delta < 0 || delta > 1)
+						throw new InvalidOperationException($"{nameof(WorkStages)} values increment must be 1 or 0. Actual increment: [{i - 1}]={WorkStages[i - 1]}, [{i}]={WorkStages[i]} => increment = {delta}");
+				}
+			}
+
+			validateWorkerProperties(nameof(PaymentRates), PaymentRates);
+			validateWorkerProperties(nameof(WorkQualities), WorkQualities);
+			validateWorkerProperties(nameof(AvailableTimes), AvailableTimes);
+			validateWorkerProperties(nameof(WorkSpeeds), WorkSpeeds);
+			validateWorkStages();
+
+			validatePositiveParameter(nameof(TotalWorkAmount), TotalWorkAmount);
+			validatePositiveParameter(nameof(DeltaRate), DeltaRate);
+			validatePositiveParameter(nameof(DeltaQuality), DeltaQuality);
+		}
+
+
+
+		private string formulateLpProblem()
+		{
+			// http://lpsolve.sourceforge.net/5.1/lp-format.htm
+
 			const string format = "0.########";
 			bool first = true;
 
@@ -53,14 +112,16 @@ namespace ExecutorsSelection
 					lp.Append("+ ");
 
 				multiplier = Math.Abs(multiplier);
-				
-				if (multiplier != 1d)
+
+				string multiplierStr = multiplier.ToString(format, CultureInfo.InvariantCulture);
+
+				if (multiplierStr != "1")
 				{
-					lp.Append(multiplier.ToString(format, CultureInfo.InvariantCulture));
+					lp.Append(multiplierStr);
 					lp.Append(' ');
 				}
 
-				lp.Append("x");
+				lp.Append('x');
 				lp.Append(index.ToString(CultureInfo.InvariantCulture));
 				lp.Append(' ');
 
@@ -92,34 +153,34 @@ namespace ExecutorsSelection
 			}
 
 			maximum();
-			for (int i = 0; i < nExecutors; i++)
+			for (int i = 0; i < ExecutorsCount; i++)
 				variable(i, multiplier: WorkQualities[i] * DeltaRate - PaymentRates[i] * DeltaQuality);
 
 			endline();
 
-			for (int i = 0; i < nExecutors; i++)
+			for (int i = 0; i < ExecutorsCount; i++)
 			{
 				variable(i, multiplier: 1);
-				lte(AvailableWorktimes[i] * WorkSpeeds[i]);
+				lte(AvailableTimes[i] * WorkSpeeds[i]);
 				endline();
 			}
 
-			for (int i = 0; i < nExecutors; i++)
+			for (int i = 0; i < ExecutorsCount; i++)
 				variable(i, multiplier: PaymentRates[i]);
 
 			lte(MaxCost);
 			endline();
 
-			for (int i = 0; i < nExecutors; i++)
+			for (int i = 0; i < ExecutorsCount; i++)
 				variable(i, multiplier: WorkQualities[i]);
 
 			gte(TotalWorkAmount * MinQuality);
 			endline();
 
-			for (int s = 0; s < stagesCount; s++)
+			for (int s = 0; s < StagesCount; s++)
 			{
-				for (int i = 0; i < nExecutors; i++)
-					if (ExecutorWorkStages[i] == s)
+				for (int i = 0; i < ExecutorsCount; i++)
+					if (WorkStages[i] == s)
 						variable(i, multiplier: 1);
 
 				eq(TotalWorkAmount);
@@ -130,8 +191,10 @@ namespace ExecutorsSelection
 			return problem;
 		}
 
-		private static string[] readSolutionFor(string problem)
+		private static string[] calculateSolutionFor(string problem)
 		{
+			// http://lpsolve.sourceforge.net/5.1/lp_solve.htm
+
 			string fullSubdir = Path.GetFullPath("lpsolve");
 			string path = Path.Combine(fullSubdir, "lp_solve.exe");
 
@@ -163,14 +226,14 @@ namespace ExecutorsSelection
 			return lines;
 		}
 
-		private static double[] parseSolution(string[] lines, int nExecutors)
+		private double[] parseSolution(string[] lines)
 		{
 			var varListIndex = Array.IndexOf(lines, "Actual values of the variables:");
 
 			if (varListIndex < 0)
 				return null;
 
-			var workDistribution = new double[nExecutors];
+			var workDistribution = new double[ExecutorsCount];
 
 			for (int i = varListIndex + 1; i < lines.Length; i++)
 			{
@@ -195,12 +258,6 @@ namespace ExecutorsSelection
 
 		private Solution createSolution(double[] workDistribution)
 		{
-			if (workDistribution == null)
-				return new Solution
-				{
-					IsUnbound = true
-				};
-
 			int nExecutors = workDistribution.Length;
 
 			double averageQuality =
@@ -226,19 +283,19 @@ namespace ExecutorsSelection
 		public double[] WorkQualities { get; set; }
 
 		public double TotalWorkAmount { get; set; }
-		public double[] AvailableWorktimes { get; set; }
+		public double[] AvailableTimes { get; set; }
 		public double[] WorkSpeeds { get; set; }
 
 		/// <summary>
 		/// <see cref="DeltaRate"/> is such an increase of payment rate
-		/// that increasing rate by it when quality changes by <see cref="DeltaQuality"/>
+		/// that increasing payment rate by it when quality changes by <see cref="DeltaQuality"/>
 		/// keeps utility function (whose maximum we are seeking) unchanged
 		/// </summary>
 		public double DeltaRate { get; set; }
 
 		/// <summary>
-		/// <see cref="DeltaRate"/> is such an increase of payment rate
-		/// that increasing rate by it when quality changes by <see cref="DeltaQuality"/>
+		/// <see cref="DeltaQuality"/> is such an increase of quality
+		/// that increasing quality by it when payment rate changes by <see cref="DeltaRate"/>
 		/// keeps utility function (whose maximum we are seeking) unchanged
 		/// </summary>
 		public double DeltaQuality { get; set; }
@@ -246,9 +303,10 @@ namespace ExecutorsSelection
 		public double MaxCost { get; set; }
 		public double MinQuality { get; set; }
 
-		public int[] ExecutorWorkStages { get; set; }
+		public int[] WorkStages { get; set; }
 
 		public int ExecutorsCount => PaymentRates.Length;
+		public int StagesCount => WorkStages[WorkStages.Length - 1] + 1;
 
 		public class Solution
 		{
