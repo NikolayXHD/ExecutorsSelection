@@ -17,14 +17,14 @@ namespace Test
 			LogManager.Flush();
 
 		protected static void Log(string title, double[] values) =>
-			_log.Debug($"{title}: " + string.Join(" ",
+			Logger.Debug($"{title}: " + string.Join(" ",
 				values.Select(NumericFormats.Format)));
 
 		protected static void Log(string title, double value) =>
-			_log.Debug($"{title}: {value.Format()}");
+			Logger.Debug($"{title}: {value.Format()}");
 
 		protected static void Log(string title, bool value) =>
-			_log.Debug($"{title}: {value.Format()}");
+			Logger.Debug($"{title}: {value.Format()}");
 
 		protected static void Log(ExecutorsSelectionProblem.Solution solution)
 		{
@@ -45,7 +45,7 @@ namespace Test
 			Log("Average quality", solution.AverageQuality);
 		}
 
-		private static readonly Logger _log = LogManager.GetCurrentClassLogger();
+		protected static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 		protected const double Epsilon = 1e-5;
 	}
 }

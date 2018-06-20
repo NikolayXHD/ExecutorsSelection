@@ -38,17 +38,44 @@
     <Reference Include="MathNet.Numerics, Version=4.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MathNet.Numerics.4.5.1\lib\net461\MathNet.Numerics.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>packages\NLog.4.5.6\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExecutorProfile.cs" />
-    <Compile Include="ExecutorsSelectionProblem.cs" />
-    <Compile Include="NumericFormats.cs" />
-    <Compile Include="PlanSelectionProblem.cs" />
+    <Compile Include="Core\Plan.cs" />
+    <Compile Include="Model\ExecutorProfile.cs" />
+    <Compile Include="Model\ExecutorProfileFactory.cs" />
+    <Compile Include="Core\ExecutorsSelectionProblem.cs" />
+    <Compile Include="Model\ExecutorsEconomicBehaviour.cs" />
+    <Compile Include="Core\PlanSelectionProblem.cs" />
+    <Compile Include="Model\PaymentRateSnapshot.cs" />
+    <Compile Include="Util\WorkStageNames.cs" />
+    <Compile Include="Util\HumanNames.cs" />
+    <Compile Include="Model\Market.cs" />
+    <Compile Include="Model\MarketBehaviour.cs" />
+    <Compile Include="Util\NumericFormats.cs" />
+    <Compile Include="Model\ProjectFactory.cs" />
+    <Compile Include="Model\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\RandomUtil.cs" />
+    <Compile Include="Model\BusyTimeSegment.cs" />
+    <Compile Include="Model\ExecutorSchedule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="lpsolve\bfp_etaPFI.dll">
@@ -85,5 +112,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

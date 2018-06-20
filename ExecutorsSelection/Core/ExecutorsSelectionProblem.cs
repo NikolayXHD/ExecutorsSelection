@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace ExecutorsSelection
 {
@@ -13,6 +14,8 @@ namespace ExecutorsSelection
 	/// </summary>
 	public class ExecutorsSelectionProblem
 	{
+		private const string InfeasibleProblemError = "Error: bound contradicts";
+
 		public Solution Solve()
 		{
 			validate();
@@ -20,7 +23,7 @@ namespace ExecutorsSelection
 			string problem = formulateLpProblem();
 			var lines = calculateSolutionFor(problem);
 
-			if (lines[0] == "This problem is infeasible")
+			if (lines[0] == "This problem is infeasible" || lines[0].StartsWith(InfeasibleProblemError))
 				return new Solution
 				{
 					IsInfeasible = true
@@ -154,7 +157,7 @@ namespace ExecutorsSelection
 
 			maximum();
 			for (int i = 0; i < ExecutorsCount; i++)
-				variable(i, multiplier: WorkQualities[i] * DeltaCost - PaymentRates[i] * DeltaQuality);
+				variable(i, multiplier: scoreCoefficient(i));
 
 			endline();
 
@@ -191,12 +194,17 @@ namespace ExecutorsSelection
 			return problem;
 		}
 
+		private double scoreCoefficient(int i) =>
+			WorkQualities[i] * DeltaCost - PaymentRates[i] * DeltaQuality;
+
 		private static string[] calculateSolutionFor(string problem)
 		{
 			// http://lpsolve.sourceforge.net/5.1/lp_solve.htm
 
 			string fullSubdir = Path.GetFullPath("lpsolve");
 			string path = Path.Combine(fullSubdir, "lp_solve.exe");
+
+			const int timeoutSeconds = 30;
 
 			var process = Process.Start(
 				new ProcessStartInfo(path)
@@ -209,21 +217,41 @@ namespace ExecutorsSelection
 				});
 
 			if (process == null)
-				throw new ApplicationException("Failed to start lp_solve.exe");
+				throw new ApplicationException($"falied to start process {path}");
 
 			process.StandardInput.WriteLine(problem);
 			process.StandardInput.Close();
 
-			process.WaitForExit();
+			var outputBuilder = new StringBuilder();
+			var errorBuilder = new StringBuilder();
 
-			string error = process.StandardError.ReadToEnd();
+			for (int i = 0; i < timeoutSeconds * 10; i++)
+			{
+				process.WaitForExit(1000 / 10);
+				outputBuilder.Append(process.StandardOutput.ReadToEnd());
+				errorBuilder.Append(process.StandardError.ReadToEnd());
+
+				if (process.HasExited)
+					break;
+			}
+
+			if (!process.HasExited)
+			{
+				process.Kill();
+				throw new ApplicationException($"lp_splve.exe timeout solving problem:\r\n{problem}");
+			}
+
+			var error = errorBuilder.ToString();
 
 			if (!string.IsNullOrEmpty(error))
-				throw new ApplicationException("lp_solve.exe error: " + error);
+			{
+				if (error.StartsWith(InfeasibleProblemError))
+					return error.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
-			string ouptut = process.StandardOutput.ReadToEnd();
-			var lines = ouptut.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-			return lines;
+				throw new ApplicationException($"lp_solve.exe error: {error}\r\n\r\nproblem:\r\n{problem}");
+			}
+
+			return outputBuilder.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 		}
 
 		private double[] parseSolution(string[] lines)
@@ -269,21 +297,27 @@ namespace ExecutorsSelection
 				Enumerable.Range(0, nExecutors)
 					.Sum(i => workDistribution[i] * PaymentRates[i]);
 
+			double score = Enumerable.Range(0, nExecutors)
+				.Sum(i => scoreCoefficient(i) * workDistribution[i]);
+
 			return new Solution
 			{
 				WorkDistribution = workDistribution,
 				AverageQuality = averageQuality,
-				TotalCost = totalCost
+				TotalCost = totalCost,
+				Score = score
 			};
 		}
 
 
-
 		public double[] PaymentRates { get; set; }
+
 		public double[] WorkQualities { get; set; }
 
 		public double TotalWorkAmount { get; set; }
+
 		public double[] AvailableTimes { get; set; }
+
 		public double[] WorkSpeeds { get; set; }
 
 		/// <summary>
@@ -301,6 +335,7 @@ namespace ExecutorsSelection
 		public double DeltaQuality { get; set; }
 
 		public double MaxCost { get; set; }
+
 		public double MinQuality { get; set; }
 
 		public int[] WorkStages { get; set; }
@@ -317,6 +352,7 @@ namespace ExecutorsSelection
 
 			public bool IsInfeasible { get; set; }
 			public bool IsUnbound { get; set; }
+			public double Score { get; set; }
 		}
 	}
 }
