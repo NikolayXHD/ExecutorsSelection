@@ -1,0 +1,11 @@
+{
+  "Id": 1,
+  "TotalWorkPages": 100.0,
+  "MaxTime": 0.16666666666666666,
+  "MinQuality": 0.7,
+  "MaxCost": 500000.0,
+  "DeltaCost": 0.3,
+  "DeltaQuality": 0.01,
+  "Plans": [],
+  "RejectedPlans": []
+}

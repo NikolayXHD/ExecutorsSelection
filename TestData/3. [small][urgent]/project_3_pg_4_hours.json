@@ -1,0 +1,91 @@
+{
+  "Id": 1,
+  "TotalWorkPages": 3.0,
+  "MaxTime": 4.0,
+  "MinQuality": 0.8,
+  "MaxCost": 12.0,
+  "DeltaCost": 0.3,
+  "DeltaQuality": 0.01,
+  "Plans": [
+    {
+      "Quality": 0.88219321876372048,
+      "Cost": 4.6248658490746317,
+      "Score": 0.7477252383966021,
+      "Time": 1.5935415105004682,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 1.5935415105004682,
+          "ExecutorsCount": 1,
+          "CostPerPage": 1.541621949691544
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Idalina Shubert",
+          "Pages": 3.0,
+          "PagesPerHour": 1.8825992170469528,
+          "PaymentRatePerPage": 1.541621949691544,
+          "WorkStage": 1,
+          "Quality": 0.88219321876372048
+        }
+      ]
+    }
+  ],
+  "RejectedPlans": [
+    {
+      "Quality": 0.94016184995623087,
+      "Cost": 10.708393204144393,
+      "Score": 0.73906173291916388,
+      "Time": 3.9999990286360543,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 2.666666352996752,
+          "ExecutorsCount": 2,
+          "CostPerPage": 1.0445776562826163
+        },
+        {
+          "Stage": "Edit",
+          "Time": 1.3333326756393022,
+          "ExecutorsCount": 2,
+          "CostPerPage": 2.5248867450988479
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Linnie Sahiner",
+          "Pages": 2.49026,
+          "PagesPerHour": 0.93384760984496262,
+          "PaymentRatePerPage": 1.0420920052411304,
+          "WorkStage": 1,
+          "Quality": 0.84781338773641912
+        },
+        {
+          "Name": "Cyndia Gaggiotti",
+          "Pages": 0.50974,
+          "PagesPerHour": 1.0238430519708797,
+          "PaymentRatePerPage": 1.0567209398439832,
+          "WorkStage": 1,
+          "Quality": 0.82129691668343863
+        },
+        {
+          "Name": "Indira Breyfogle",
+          "Pages": 0.350887,
+          "PagesPerHour": 0.26316537981172461,
+          "PaymentRatePerPage": 2.4952203703354221,
+          "WorkStage": 2,
+          "Quality": 0.9486365894395572
+        },
+        {
+          "Name": "Malorie Lieven",
+          "Pages": 2.64911,
+          "PagesPerHour": 2.3433241992124549,
+          "PaymentRatePerPage": 2.5288190544034257,
+          "WorkStage": 2,
+          "Quality": 0.93904039579708465
+        }
+      ]
+    }
+  ]
+}

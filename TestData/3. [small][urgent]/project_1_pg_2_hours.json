@@ -1,0 +1,83 @@
+{
+  "Id": 1,
+  "TotalWorkPages": 1.0,
+  "MaxTime": 2.0,
+  "MinQuality": 0.8,
+  "MaxCost": 4.0,
+  "DeltaCost": 0.3,
+  "DeltaQuality": 0.01,
+  "Plans": [
+    {
+      "Quality": 0.88219321876372048,
+      "Cost": 1.541621949691544,
+      "Score": 0.24924174613220071,
+      "Time": 0.53118050350015611,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 0.53118050350015611,
+          "ExecutorsCount": 1,
+          "CostPerPage": 1.541621949691544
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Idalina Shubert",
+          "Pages": 1.0,
+          "PagesPerHour": 1.8825992170469528,
+          "PaymentRatePerPage": 1.541621949691544,
+          "WorkStage": 1,
+          "Quality": 0.88219321876372048
+        }
+      ]
+    }
+  ],
+  "RejectedPlans": [
+    {
+      "Quality": 0.9407239903944945,
+      "Cost": 3.5650163721169292,
+      "Score": 0.24656703339717906,
+      "Time": 1.7375067658698049,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 1.0708385281041946,
+          "ExecutorsCount": 1,
+          "CostPerPage": 1.0420920052411304
+        },
+        {
+          "Stage": "Edit",
+          "Time": 0.66666823776561035,
+          "ExecutorsCount": 2,
+          "CostPerPage": 2.5229243668757988
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Linnie Sahiner",
+          "Pages": 1.0,
+          "PagesPerHour": 0.93384760984496262,
+          "PaymentRatePerPage": 1.0420920052411304,
+          "WorkStage": 1,
+          "Quality": 0.84781338773641912
+        },
+        {
+          "Name": "Indira Breyfogle",
+          "Pages": 0.175444,
+          "PagesPerHour": 0.26316537981172461,
+          "PaymentRatePerPage": 2.4952203703354221,
+          "WorkStage": 2,
+          "Quality": 0.9486365894395572
+        },
+        {
+          "Name": "Malorie Lieven",
+          "Pages": 0.824556,
+          "PagesPerHour": 2.3433241992124549,
+          "PaymentRatePerPage": 2.5288190544034257,
+          "WorkStage": 2,
+          "Quality": 0.93904039579708465
+        }
+      ]
+    }
+  ]
+}

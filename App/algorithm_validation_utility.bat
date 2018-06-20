@@ -1,0 +1,1 @@
+nunit-gui\nunit-gui.exe Test.dll

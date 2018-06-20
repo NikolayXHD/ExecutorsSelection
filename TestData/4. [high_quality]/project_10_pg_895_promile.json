@@ -1,0 +1,535 @@
+{
+  "Id": 1,
+  "TotalWorkPages": 10.0,
+  "MaxTime": null,
+  "MinQuality": 0.895,
+  "MaxCost": 50.0,
+  "DeltaCost": 0.24,
+  "DeltaQuality": 0.01,
+  "Plans": [
+    {
+      "Quality": 0.9958378038632747,
+      "Cost": 42.570217281438119,
+      "Score": 1.9643085564574783,
+      "Time": 15.154266618867272,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 10.708385281041947,
+          "ExecutorsCount": 1,
+          "CostPerPage": 1.0420920052411304
+        },
+        {
+          "Stage": "Edit",
+          "Time": 3.7037072130810973,
+          "ExecutorsCount": 4,
+          "CostPerPage": 2.4210056694944071
+        },
+        {
+          "Stage": "Correct",
+          "Time": 0.74217412474422773,
+          "ExecutorsCount": 1,
+          "CostPerPage": 0.79392405340827432
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Linnie Sahiner",
+          "Pages": 10.0,
+          "PagesPerHour": 0.93384760984496262,
+          "PaymentRatePerPage": 1.0420920052411304,
+          "WorkStage": 1,
+          "Quality": 0.84781338773641912
+        },
+        {
+          "Name": "Albina Zani",
+          "Pages": 4.51694,
+          "PagesPerHour": 1.5361497056253746,
+          "PaymentRatePerPage": 2.4299250303435436,
+          "WorkStage": 2,
+          "Quality": 0.93042002578134186
+        },
+        {
+          "Name": "Angelica Schuler",
+          "Pages": 0.0791499,
+          "PagesPerHour": 2.3669493040343474,
+          "PaymentRatePerPage": 2.5076887522100968,
+          "WorkStage": 2,
+          "Quality": 0.94586870112606825
+        },
+        {
+          "Name": "Indira Breyfogle",
+          "Pages": 0.974687,
+          "PagesPerHour": 0.26316537981172461,
+          "PaymentRatePerPage": 2.4952203703354221,
+          "WorkStage": 2,
+          "Quality": 0.9486365894395572
+        },
+        {
+          "Name": "Flor Xue",
+          "Pages": 4.42923,
+          "PagesPerHour": 1.1958909668551645,
+          "PaymentRatePerPage": 2.3940253627186729,
+          "WorkStage": 2,
+          "Quality": 0.93020208798188531
+        },
+        {
+          "Name": "Roxana Burch",
+          "Pages": 10.0,
+          "PagesPerHour": 13.473927029517847,
+          "PaymentRatePerPage": 0.79392405340827432,
+          "WorkStage": 3,
+          "Quality": 0.9958378038632747
+        }
+      ]
+    },
+    {
+      "Quality": 0.9958378038632747,
+      "Cost": 43.423399684884188,
+      "Score": 1.9557767324230175,
+      "Time": 9.1146754388393116,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 6.2793757120324347,
+          "ExecutorsCount": 3,
+          "CostPerPage": 1.0471294289984918
+        },
+        {
+          "Stage": "Edit",
+          "Time": 2.0931256020626496,
+          "ExecutorsCount": 4,
+          "CostPerPage": 2.5012864860816526
+        },
+        {
+          "Stage": "Correct",
+          "Time": 0.74217412474422773,
+          "ExecutorsCount": 1,
+          "CostPerPage": 0.79392405340827432
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Linnie Sahiner",
+          "Pages": 5.86398,
+          "PagesPerHour": 0.93384760984496262,
+          "PaymentRatePerPage": 1.0420920052411304,
+          "WorkStage": 1,
+          "Quality": 0.84781338773641912
+        },
+        {
+          "Name": "Andy Mccue",
+          "Pages": 0.751606,
+          "PagesPerHour": 0.31721710109459234,
+          "PaymentRatePerPage": 1.0432469898772205,
+          "WorkStage": 1,
+          "Quality": 0.84468561480858451
+        },
+        {
+          "Name": "Cyndia Gaggiotti",
+          "Pages": 3.38441,
+          "PagesPerHour": 1.0238430519708797,
+          "PaymentRatePerPage": 1.0567209398439832,
+          "WorkStage": 1,
+          "Quality": 0.82129691668343863
+        },
+        {
+          "Name": "Carline Howitt",
+          "Pages": 2.04114,
+          "PagesPerHour": 2.7303497659670413,
+          "PaymentRatePerPage": 2.568304653478314,
+          "WorkStage": 2,
+          "Quality": 0.93304847911565336
+        },
+        {
+          "Name": "Indira Breyfogle",
+          "Pages": 0.550838,
+          "PagesPerHour": 0.26316537981172461,
+          "PaymentRatePerPage": 2.4952203703354221,
+          "WorkStage": 2,
+          "Quality": 0.9486365894395572
+        },
+        {
+          "Name": "Flor Xue",
+          "Pages": 2.50315,
+          "PagesPerHour": 1.1958909668551645,
+          "PaymentRatePerPage": 2.3940253627186729,
+          "WorkStage": 2,
+          "Quality": 0.93020208798188531
+        },
+        {
+          "Name": "Malorie Lieven",
+          "Pages": 4.90487,
+          "PagesPerHour": 2.3433241992124549,
+          "PaymentRatePerPage": 2.5288190544034257,
+          "WorkStage": 2,
+          "Quality": 0.93904039579708465
+        },
+        {
+          "Name": "Roxana Burch",
+          "Pages": 10.0,
+          "PagesPerHour": 13.473927029517847,
+          "PaymentRatePerPage": 0.79392405340827432,
+          "WorkStage": 3,
+          "Quality": 0.9958378038632747
+        }
+      ]
+    },
+    {
+      "Quality": 0.89499999681638587,
+      "Cost": 21.02539478243688,
+      "Score": 1.9377460445349566,
+      "Time": 2.1714688776889894,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 2.1714688776889894,
+          "ExecutorsCount": 3,
+          "CostPerPage": 2.1025394782436879
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Dedra Gulati",
+          "Pages": 2.60617,
+          "PagesPerHour": 1.2001875904266455,
+          "PaymentRatePerPage": 2.0210220441764712,
+          "WorkStage": 1,
+          "Quality": 0.89445623220003989
+        },
+        {
+          "Name": "Marleen Hanrahan",
+          "Pages": 1.97138,
+          "PagesPerHour": 1.7863174788693874,
+          "PaymentRatePerPage": 1.8239334436295356,
+          "WorkStage": 1,
+          "Quality": 0.89048737629574459
+        },
+        {
+          "Name": "Karola Athanassakis",
+          "Pages": 5.42245,
+          "PagesPerHour": 2.7300895564779988,
+          "PaymentRatePerPage": 2.2430085753604168,
+          "WorkStage": 1,
+          "Quality": 0.8969019475715172
+        }
+      ]
+    }
+  ],
+  "RejectedPlans": [
+    {
+      "Quality": 0.89500000032715721,
+      "Cost": 20.703774195872537,
+      "Score": 1.9409622588264521,
+      "Time": 6.4795287520307872,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 6.4795287520307872,
+          "ExecutorsCount": 2,
+          "CostPerPage": 2.0703774195872535
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Dedra Gulati",
+          "Pages": 7.77665,
+          "PagesPerHour": 1.2001875904266455,
+          "PaymentRatePerPage": 2.0210220441764712,
+          "WorkStage": 1,
+          "Quality": 0.89445623220003989
+        },
+        {
+          "Name": "Karola Athanassakis",
+          "Pages": 2.22335,
+          "PagesPerHour": 2.7300895564779988,
+          "PaymentRatePerPage": 2.2430085753604168,
+          "WorkStage": 1,
+          "Quality": 0.8969019475715172
+        }
+      ]
+    },
+    {
+      "Quality": 0.89500000032715721,
+      "Cost": 20.703774195872537,
+      "Score": 1.9409622588264521,
+      "Time": 6.4795287520307872,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 6.4795287520307872,
+          "ExecutorsCount": 2,
+          "CostPerPage": 2.0703774195872535
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Dedra Gulati",
+          "Pages": 7.77665,
+          "PagesPerHour": 1.2001875904266455,
+          "PaymentRatePerPage": 2.0210220441764712,
+          "WorkStage": 1,
+          "Quality": 0.89445623220003989
+        },
+        {
+          "Name": "Karola Athanassakis",
+          "Pages": 2.22335,
+          "PagesPerHour": 2.7300895564779988,
+          "PaymentRatePerPage": 2.2430085753604168,
+          "WorkStage": 1,
+          "Quality": 0.8969019475715172
+        }
+      ]
+    },
+    {
+      "Quality": 0.94627337470116524,
+      "Cost": 35.479578426160039,
+      "Score": 1.9162603150211961,
+      "Time": 16.263941262782303,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 10.708385281041947,
+          "ExecutorsCount": 1,
+          "CostPerPage": 1.0420920052411304
+        },
+        {
+          "Stage": "Edit",
+          "Time": 5.5555559817403584,
+          "ExecutorsCount": 2,
+          "CostPerPage": 2.5058658373748735
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Linnie Sahiner",
+          "Pages": 10.0,
+          "PagesPerHour": 0.93384760984496262,
+          "PaymentRatePerPage": 1.0420920052411304,
+          "WorkStage": 1,
+          "Quality": 0.84781338773641912
+        },
+        {
+          "Name": "Angelica Schuler",
+          "Pages": 8.53797,
+          "PagesPerHour": 2.3669493040343474,
+          "PaymentRatePerPage": 2.5076887522100968,
+          "WorkStage": 2,
+          "Quality": 0.94586870112606825
+        },
+        {
+          "Name": "Indira Breyfogle",
+          "Pages": 1.46203,
+          "PagesPerHour": 0.26316537981172461,
+          "PaymentRatePerPage": 2.4952203703354221,
+          "WorkStage": 2,
+          "Quality": 0.9486365894395572
+        }
+      ]
+    },
+    {
+      "Quality": 0.9470447178465905,
+      "Cost": 36.46500463628017,
+      "Score": 1.9082572764690153,
+      "Time": 9.419067352480246,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 6.2793757120324347,
+          "ExecutorsCount": 3,
+          "CostPerPage": 1.0471294289984918
+        },
+        {
+          "Stage": "Edit",
+          "Time": 3.1396916404478117,
+          "ExecutorsCount": 3,
+          "CostPerPage": 2.5993710346295247
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Linnie Sahiner",
+          "Pages": 5.86398,
+          "PagesPerHour": 0.93384760984496262,
+          "PaymentRatePerPage": 1.0420920052411304,
+          "WorkStage": 1,
+          "Quality": 0.84781338773641912
+        },
+        {
+          "Name": "Andy Mccue",
+          "Pages": 0.751606,
+          "PagesPerHour": 0.31721710109459234,
+          "PaymentRatePerPage": 1.0432469898772205,
+          "WorkStage": 1,
+          "Quality": 0.84468561480858451
+        },
+        {
+          "Name": "Cyndia Gaggiotti",
+          "Pages": 3.38441,
+          "PagesPerHour": 1.0238430519708797,
+          "PaymentRatePerPage": 1.0567209398439832,
+          "WorkStage": 1,
+          "Quality": 0.82129691668343863
+        },
+        {
+          "Name": "Indira Breyfogle",
+          "Pages": 0.826258,
+          "PagesPerHour": 0.26316537981172461,
+          "PaymentRatePerPage": 2.4952203703354221,
+          "WorkStage": 2,
+          "Quality": 0.9486365894395572
+        },
+        {
+          "Name": "Kimmy Christian-Herot",
+          "Pages": 8.41093,
+          "PagesPerHour": 2.6789032055391133,
+          "PaymentRatePerPage": 2.615999466042374,
+          "WorkStage": 2,
+          "Quality": 0.94761371569469843
+        },
+        {
+          "Name": "Malorie Lieven",
+          "Pages": 0.762817,
+          "PagesPerHour": 2.3433241992124549,
+          "PaymentRatePerPage": 2.5288190544034257,
+          "WorkStage": 2,
+          "Quality": 0.93904039579708465
+        }
+      ]
+    },
+    {
+      "Quality": 0.94044866007173056,
+      "Cost": 37.372566619982592,
+      "Score": 1.8833511179723277,
+      "Time": 2.1714758614558121,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 1.4476498559079611,
+          "ExecutorsCount": 7,
+          "CostPerPage": 1.0610134272661376
+        },
+        {
+          "Stage": "Edit",
+          "Time": 0.72382600554785081,
+          "ExecutorsCount": 7,
+          "CostPerPage": 2.6762432347321221
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Atalanta Hanrieder",
+          "Pages": 0.777742,
+          "PagesPerHour": 0.53724524308485344,
+          "PaymentRatePerPage": 1.060040233857749,
+          "WorkStage": 1,
+          "Quality": 0.83253735346343238
+        },
+        {
+          "Name": "Linnie Sahiner",
+          "Pages": 1.35188,
+          "PagesPerHour": 0.93384760984496262,
+          "PaymentRatePerPage": 1.0420920052411304,
+          "WorkStage": 1,
+          "Quality": 0.84781338773641912
+        },
+        {
+          "Name": "Elaine Watts",
+          "Pages": 1.67776,
+          "PagesPerHour": 1.1589542824550723,
+          "PaymentRatePerPage": 1.0738724608162531,
+          "WorkStage": 1,
+          "Quality": 0.85412850528020645
+        },
+        {
+          "Name": "Bonita Mahdi",
+          "Pages": 0.538531,
+          "PagesPerHour": 0.59567451817727779,
+          "PaymentRatePerPage": 1.0793323131892893,
+          "WorkStage": 1,
+          "Quality": 0.85009116872598278
+        },
+        {
+          "Name": "Cyndia Gaggiotti",
+          "Pages": 1.48216,
+          "PagesPerHour": 1.0238430519708797,
+          "PaymentRatePerPage": 1.0567209398439832,
+          "WorkStage": 1,
+          "Quality": 0.82129691668343863
+        },
+        {
+          "Name": "Con Flowerdew",
+          "Pages": 2.3178,
+          "PagesPerHour": 1.6010788852233533,
+          "PaymentRatePerPage": 1.0571551943431474,
+          "WorkStage": 1,
+          "Quality": 0.82058080383132248
+        },
+        {
+          "Name": "Betteanne Awuku-Darkoh",
+          "Pages": 1.85412,
+          "PagesPerHour": 1.2807819567429806,
+          "PaymentRatePerPage": 1.066519499058356,
+          "WorkStage": 1,
+          "Quality": 0.85174704878766916
+        },
+        {
+          "Name": "Milena Broun",
+          "Pages": 0.420491,
+          "PagesPerHour": 0.58443221743209228,
+          "PaymentRatePerPage": 2.85752297838341,
+          "WorkStage": 2,
+          "Quality": 0.944672017703101
+        },
+        {
+          "Name": "Maritsa Mirtin-Gonzalez",
+          "Pages": 4.02079,
+          "PagesPerHour": 5.5549248564007678,
+          "PaymentRatePerPage": 2.8115938137329812,
+          "WorkStage": 2,
+          "Quality": 0.94501433794970657
+        },
+        {
+          "Name": "Carline Howitt",
+          "Pages": 1.97629,
+          "PagesPerHour": 2.7303497659670413,
+          "PaymentRatePerPage": 2.568304653478314,
+          "WorkStage": 2,
+          "Quality": 0.93304847911565336
+        },
+        {
+          "Name": "Indira Breyfogle",
+          "Pages": 0.190485,
+          "PagesPerHour": 0.26316537981172461,
+          "PaymentRatePerPage": 2.4952203703354221,
+          "WorkStage": 2,
+          "Quality": 0.9486365894395572
+        },
+        {
+          "Name": "Dorothea Outram",
+          "Pages": 1.12313,
+          "PagesPerHour": 1.5516574306416682,
+          "PaymentRatePerPage": 2.7110000650784181,
+          "WorkStage": 2,
+          "Quality": 0.94150989188313872
+        },
+        {
+          "Name": "Flor Xue",
+          "Pages": 0.57266,
+          "PagesPerHour": 1.1958909668551645,
+          "PaymentRatePerPage": 2.3940253627186729,
+          "WorkStage": 2,
+          "Quality": 0.93020208798188531
+        },
+        {
+          "Name": "Malorie Lieven",
+          "Pages": 1.69615,
+          "PagesPerHour": 2.3433241992124549,
+          "PaymentRatePerPage": 2.5288190544034257,
+          "WorkStage": 2,
+          "Quality": 0.93904039579708465
+        }
+      ]
+    }
+  ]
+}

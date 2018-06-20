@@ -1,0 +1,64 @@
+{
+  "ProjectFactory": {
+    "IdCounter": 0,
+    "NoDeadlineProbability": 0.1,
+    "AverageHoursToDeadline": 16.0,
+    "AveragePages": 100.0,
+    "AverageMaxCostPerPage": 5.0,
+    "UnlimitedCostProbability": 0.05,
+    "MinQuality": 0.5,
+    "MaxQuality": 1.0,
+    "AverageDeltaCost": 0.3,
+    "DeltaQuality": 0.01,
+    "QualityNotImportantProbability": 0.1,
+    "CostNotImportantProbability": 0.1
+  },
+  "ExecutorProfileFactory": {
+    "AverageWordsPerDayByStage": [
+      4000.0,
+      2000.0,
+      4000.0,
+      12000.0
+    ],
+    "MinQualityPerStage": [
+      0.5,
+      0.7,
+      0.9,
+      0.95
+    ],
+    "MaxQualityPerStage": [
+      0.7,
+      0.9,
+      0.95,
+      1.0
+    ],
+    "AveragePaymentRatePerWord": 0.01,
+    "QualityAverage": 0.8
+  },
+  "ExecutorsEconomicBehaviour": {
+    "PaymentRateUpdatingIntervalHours": 24,
+    "BusinessPeriodToEstimate": 32.0,
+    "BusinessRateToIncreasePayment": 0.8,
+    "BusinessRateToDecreasePayment": 0.01,
+    "IncrementMultiplier": 1.1
+  },
+  "MarketBehaviour": {
+    "ClockIntervalHours": 0.1,
+    "NewProjectProbability": 0.5
+  },
+  "ExecutorsCountPerStage": [
+    50,
+    500,
+    50,
+    10
+  ],
+  "HoursElapsed": 0,
+  "ExecutorsByStage": null,
+  "ProjectByCreationTimeInHours": null,
+  "ExpectedPagesPerHourPerStage": [
+    2.0,
+    1.0,
+    2.0,
+    6.0
+  ]
+}

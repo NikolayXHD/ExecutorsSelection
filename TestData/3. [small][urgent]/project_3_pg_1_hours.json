@@ -1,0 +1,139 @@
+{
+  "Id": 1,
+  "TotalWorkPages": 3.0,
+  "MaxTime": 1.0,
+  "MinQuality": 0.8,
+  "MaxCost": 12.0,
+  "DeltaCost": 0.3,
+  "DeltaQuality": 0.01,
+  "Plans": [
+    {
+      "Quality": 0.8837198218944412,
+      "Cost": 4.7776301525282925,
+      "Score": 0.74757153817971433,
+      "Time": 1.0000004158893938,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 1.0000004158893938,
+          "ExecutorsCount": 3,
+          "CostPerPage": 1.5925433841760974
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Flori Pellish",
+          "Pages": 0.91812,
+          "PagesPerHour": 0.918120038699553,
+          "PaymentRatePerPage": 1.7040521430759208,
+          "WorkStage": 1,
+          "Quality": 0.88717671244102547
+        },
+        {
+          "Name": "Idalina Shubert",
+          "Pages": 1.8826,
+          "PagesPerHour": 1.8825992170469528,
+          "PaymentRatePerPage": 1.541621949691544,
+          "WorkStage": 1,
+          "Quality": 0.88219321876372048
+        },
+        {
+          "Name": "Cristin Baldwin",
+          "Pages": 0.199281,
+          "PagesPerHour": 0.32292490220563269,
+          "PaymentRatePerPage": 1.5598492402091872,
+          "WorkStage": 1,
+          "Quality": 0.88221069149788145
+        }
+      ]
+    }
+  ],
+  "RejectedPlans": [
+    {
+      "Quality": 0.94302927399851555,
+      "Cost": 11.342306068746524,
+      "Score": 0.73530328591119865,
+      "Time": 1.0000025177691685,
+      "StageSubtotals": [
+        {
+          "Stage": "Translate",
+          "Time": 0.66666921277342139,
+          "ExecutorsCount": 5,
+          "CostPerPage": 1.0551169772129954
+        },
+        {
+          "Stage": "Edit",
+          "Time": 0.33333330499574709,
+          "ExecutorsCount": 3,
+          "CostPerPage": 2.7256517123691792
+        }
+      ],
+      "Executors": [
+        {
+          "Name": "Atalanta Hanrieder",
+          "Pages": 0.358164,
+          "PagesPerHour": 0.53724524308485344,
+          "PaymentRatePerPage": 1.060040233857749,
+          "WorkStage": 1,
+          "Quality": 0.83253735346343238
+        },
+        {
+          "Name": "Linnie Sahiner",
+          "Pages": 0.622565,
+          "PagesPerHour": 0.93384760984496262,
+          "PaymentRatePerPage": 1.0420920052411304,
+          "WorkStage": 1,
+          "Quality": 0.84781338773641912
+        },
+        {
+          "Name": "Cyndia Gaggiotti",
+          "Pages": 0.682562,
+          "PagesPerHour": 1.0238430519708797,
+          "PaymentRatePerPage": 1.0567209398439832,
+          "WorkStage": 1,
+          "Quality": 0.82129691668343863
+        },
+        {
+          "Name": "Con Flowerdew",
+          "Pages": 1.06739,
+          "PagesPerHour": 1.6010788852233533,
+          "PaymentRatePerPage": 1.0571551943431474,
+          "WorkStage": 1,
+          "Quality": 0.82058080383132248
+        },
+        {
+          "Name": "Betteanne Awuku-Darkoh",
+          "Pages": 0.269323,
+          "PagesPerHour": 1.2807819567429806,
+          "PaymentRatePerPage": 1.066519499058356,
+          "WorkStage": 1,
+          "Quality": 0.85174704878766916
+        },
+        {
+          "Name": "Maritsa Mirtin-Gonzalez",
+          "Pages": 1.85164,
+          "PagesPerHour": 5.5549248564007678,
+          "PaymentRatePerPage": 2.8115938137329812,
+          "WorkStage": 2,
+          "Quality": 0.94501433794970657
+        },
+        {
+          "Name": "Dorothea Outram",
+          "Pages": 0.36725,
+          "PagesPerHour": 1.5516574306416682,
+          "PaymentRatePerPage": 2.7110000650784181,
+          "WorkStage": 2,
+          "Quality": 0.94150989188313872
+        },
+        {
+          "Name": "Malorie Lieven",
+          "Pages": 0.781108,
+          "PagesPerHour": 2.3433241992124549,
+          "PaymentRatePerPage": 2.5288190544034257,
+          "WorkStage": 2,
+          "Quality": 0.93904039579708465
+        }
+      ]
+    }
+  ]
+}
